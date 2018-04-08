@@ -17,6 +17,9 @@
 
 ##### Drop out 했을 때의 효과 1. Voting 효과 - 일정한 미니배치동안 줄어든 망을 이용해 학습을 하게 되면 그 망은 그 망 나름대로 overfitting이 되고 다른 미니배치 구간 동안 다른 망에 대해 학습을 하게 되면 그 망에 대해 다시 일정 정도 overfitting이 된다. 이런 과정을 무작위로 반복을 하게 되면, voting에 의한 평균 효과를 얻을 수 있기 때문에 결과적으로 regularization과 비슷한 효과를 얻을 수 있게 된다. 2. Co-adaptation을 피하는 효과 - 특정 뉴런의 바이어스나 가중치가 큰 값을 갖게 되면 그것의 영향이 커지면서 다른 뉴런들의 학습 속도가 느려지거나 학습이 제대로 진행이 되지 못하는 경우가 있다. 하지만 dropout을 하면서 학습을 하게 되면 결과적으로 어떤 뉴런의 가중치나 바이어스가 특정 뉴런의 영향을 받지 않기 때문에 결과적으로 뉴런들이 서로 동조화(co-adaptation)이 되는 것을 피할 수 있다. 특정 학습 데이터나 자료에 영향을 받지 않는 보다 강건한(robust)한 망을 구성할 수가 있게 되는 것이다. 이 논문 읽어보자 Dropout : A Simple Way to Prevent Neural Networks from Overfitting
 
+##### Hyperparameter에는 어떠한 것들이 있을까?
+##### 1. Learning Rate 2. Cost Function 3. Regularization parameter 4. Mini-batch 크기 5. Training 반복 횟수 6. Hidden unit의 개수 7. 가중치 초기값 - 보통 뉴런의 개수 제곱의 역수 범위 내에서 무작위로 설정해 줌 8. CNN에서 필터의 크기 9. Stride 10. Bias
+
 
 ##### Batch Normalization에 대한 글 (출처 - http://blog.naver.com/PostView.nhn?blogId=laonple&logNo=220808903260&parentCategoryNo=&categoryNo=21&viewDate=&isShowPopularPosts=true&from=search)
 ##### 딥러닝에서는 기울기 소실(vanishing/exploding gradient)가 가장 골칫거리중 하나인데 layer 수가 적으면 문제가 되지 않지만 layer 수가 많으면 기울기 소실이 나올 확률이 높다. 그 이유는 활성 함수로 sigmoid나 tanh와 같은 non-linear saturating function을 사용하기 때문인데 입력의 절대값이 작은 일부 구간을 제외하면 미분값이 0 근처로 가기 때문에 역전파를 통한 학습이 어려워지거나 느려지게 된다. 이 문제에 대한 해결책으로 2011년 ReLU(Rectifier Linear Unit)을 활성함수로 쓰는 방법이 소개되었지만 이것은 간접적인 회피이지 본질적인 해결책이 아니기 때문에 망이 깊어지면 여전히 문제가 된다. 그러다가 2015년에 Batch Normalization과 Residual Network가 소개되었고 획기적으로 여겨졌다. Batch normalization에서 알아야 할 전제 조건은 망이 깊어짐에 따라 이전 layer에서의 작은 파라미터 변화가 증폭되어 뒷단에 큰 영향을 끼치게 된다는 것이다. 이처럼 학습하는 도중이 이전 layer의 파라미터 변화로 인해 현재 layer의 입력의 분포가 바뀌는 현상을 Covariate Shift라고 한다. Covariate Shift를 줄이는 방법은 각 layer로 들어가는 입력을 whitening 시키는 것인데 이는 입력을 평균 0, 분산 1로 바꿔준다는 것이다.
