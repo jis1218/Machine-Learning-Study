@@ -44,3 +44,9 @@ def prac(a, b):
 ##### 이렇게 에러가 뜬다. Variable W already exists, disallowed. Did you mean to set reuse=True or reuse=tf.AUTO_REUSE in VarScope? Originally defined at:
 
 ##### get_variable을 쓰지 않으면 일일이 변수를 다 만들어줘야하는 불편함이 있다. 은닉층 한두개면 상관 없겠지만 많아지면 일일이 변수를 다 써야하므로 불편하다.
+
+```
+ResourceExhaustedError (see above for traceback): OOM when allocating tensor with shape[10000,32,28,28] and type float on /job:localhost/replica:0/task:0/device:GPU:0 by allocator GPU_0_bfc
+	 [[Node: Conv2D = Conv2D[T=DT_FLOAT, data_format="NHWC", dilations=[1, 1, 1, 1], padding="SAME", strides=[1, 1, 1, 1], use_cudnn_on_gpu=true, _device="/job:localhost/replica:0/task:0/device:GPU:0"](Reshape, Variable/read)]]
+Hint: If you want to see a list of allocated tensors when OOM happens, add report_tensor_allocations_upon_oom to RunOptions for current allocation info.
+```
