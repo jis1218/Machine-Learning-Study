@@ -1,3 +1,6 @@
+## 머신러닝에 필요한 수학적 개념
+##### 공분산 : x,y가 동시에 변하는 정도를 공분산이라 한다. https://blog.naver.com/xodh16/220545875799
+
 ## TensorFlow의 동작 원리
 #### 연산은 graph로 표현한다. graph는 node와 edge로 이루어진 구조를 의미
 #### graph는 Session 내에서 실행됨
