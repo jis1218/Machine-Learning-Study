@@ -24,3 +24,6 @@
 
 #### 7. SGD-Using-Tensorflow 
 > [TensorFlow를 이용하여 SGD 구현](https://github.com/jis1218/SGD-Using-Tensorflow)
+
+#### 8. Multi-Layer-SGD-Using Tensorflow-with-CIFAR-10 Data
+> [TensorFlow와 CIFAR-10을 이용하여 SGD 구현](https://github.com/jis1218/CIFAR-10-Using-Tensorflow)

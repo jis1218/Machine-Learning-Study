@@ -53,3 +53,33 @@ ResourceExhaustedError (see above for traceback): OOM when allocating tensor wit
 	 [[Node: Conv2D = Conv2D[T=DT_FLOAT, data_format="NHWC", dilations=[1, 1, 1, 1], padding="SAME", strides=[1, 1, 1, 1], use_cudnn_on_gpu=true, _device="/job:localhost/replica:0/task:0/device:GPU:0"](Reshape, Variable/read)]]
 Hint: If you want to see a list of allocated tensors when OOM happens, add report_tensor_allocations_upon_oom to RunOptions for current allocation info.
 ```
+
+## 주성분 분석 - 데이터 집합 내에 존재하는 각 데이터의 차이를 가장 잘 나타내 주는 요소를 찾아 내는 방법
+##### http://adnoctum.tistory.com/977 참고하라
+##### 개별데이터가 n개, 변수가 p개 있다고 하자
+```
+{X={x11, x21, ...., xp1},
+ {x21, x22, ...., xp2},
+ ...
+ ...
+ {xn1, xn2, ...., xpn}}
+
+ W={w1, w2, ...., wp}
+
+ T = X*W(t)
+```
+
+##### X*W(t)(내적)을 구했을때 결과는 T={t1, t2, ...., tn}이 나오게 되는데 이 결과(T)의 분산이 최대값이 나오도록 하는 W를 찾는 것이 핵심
+
+##### 수식으로 살펴보면 var(T) = var(t1, t2, t3, ...., tn)이고
+##### W = arg max Var(t1)이다. 그리고 ||W||는 1인데 이것은 W의 총 크기가 1이라는 이야기다. (w1^2 + w2^2 + w3^2 + .... + wp^2)^(1/2)=1
+
+##### 분산의 공식이 V(Y) = E(Y^2) - [E(Y)]^2 인데 E(Y)를 0으로 되게 데이터를 만들면
+##### V(Y)는 E(Y^2)가 되고 결국 W = arg max Var(T) = arg max E(T^2)이다
+ 
+##### 결론부터 적으면 W=arg max{w(t)X(t)Xw/w(t)w}에서 X(t)X의 eigenvalue의 최대값이 되고 W는 그 고유값의 고유벡터가 된다. 제2주성분의 값은 원래 X에서 제1주성분을 빼고 위의 과정을 거치는 것이지만 X(t)X의 두번째 크기의 eigenValue값에 해당하는 eigenVector가 된다. 중간 과정은 더 공부를 해보자(에르미트 행렬 등등)
+
+
+
+
+
