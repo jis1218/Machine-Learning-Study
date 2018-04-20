@@ -7,10 +7,15 @@
     
 #### 3. Python 이용하여 ML에 필요한 각종 Library와 수학식 공부
 > [matplotlib 연습](https://github.com/jis1218/Python-matplotlib-prac)
+
 > [Numpy 연습](https://github.com/jis1218/Python-Numpy-Prac)
+
 > [특정 식의 최소값 구해보기](https://github.com/jis1218/Python-Machine-Learning-Practice)
+
 > [미분해보기](https://github.com/jis1218/Differentiation-Using-Python)
+
 > [ReLU와 Sigmoid 함수](https://github.com/jis1218/Activation-Function)
+
 
 #### 4. BackPropagation-Using-Python
 > [Python을 이용하여 특정 값을 구하는 BackPropagation 구현](https://github.com/jis1218/BackPropagation-Using-Python)
