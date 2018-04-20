@@ -32,3 +32,6 @@
 
 #### 8. Multi-Layer-SGD-Using Tensorflow-with-CIFAR-10 Data
 > [TensorFlow와 CIFAR-10을 이용하여 SGD 구현](https://github.com/jis1218/CIFAR-10-Using-Tensorflow)
+
+#### 9. Dialog Management에 대한 간단한 정리
+> [Dialog Management란 무엇인가](https://github.com/jis1218/Dialog-Management)
