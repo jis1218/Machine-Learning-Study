@@ -35,3 +35,6 @@
 
 #### 9. Dialog Management에 대한 간단한 정리
 > [Dialog Management란 무엇인가](https://github.com/jis1218/Dialog-Management)
+
+#### 10. Recent Approaches to Dialog Management for Spoken Dialog Systems 논문 공부
+> [Dialog Management 논문 공부(진행중)](https://github.com/jis1218/Machine-Learning-Study/tree/master/논문/Recent%20Approaches%20to%20Dialog%20Management%20for%20Spoken%20Dialog%20Systems)
