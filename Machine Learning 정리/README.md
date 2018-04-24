@@ -79,6 +79,11 @@ Hint: If you want to see a list of allocated tensors when OOM happens, add repor
  
 ##### 결론부터 적으면 W=arg max{w(t)X(t)Xw/w(t)w}에서 X(t)X의 eigenvalue의 최대값이 되고 W는 그 고유값의 고유벡터가 된다. 제2주성분의 값은 원래 X에서 제1주성분을 빼고 위의 과정을 거치는 것이지만 X(t)X의 두번째 크기의 eigenValue값에 해당하는 eigenVector가 된다. 중간 과정은 더 공부를 해보자(에르미트 행렬 등등)
 
+### TensorBoard 사용법
+##### cmd에 이런식으로 써야 한다.
+#####tensorboard --logdir=(데이터 들어있는 폴더)/
+
+
 
 
 
