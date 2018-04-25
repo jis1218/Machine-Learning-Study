@@ -8,7 +8,7 @@
 
 ## TensorFlow란?
 #### TensorFlow는 graph로 연산을 나타내는 프로그래밍 시스템
-#### TensorFlow 프로그램은 graph를 조립하는 구성단계(construction phase)와 session을 이용해 graph의 op를 실행시키는 실행단계(execution phase)로 구성된다.
+#### TensorFlow 프로그램은 graph를 조립하는 구성단계(construction phase)와 session을 이용해 graph의 op를 실행시키는 실행단계(execution phase)로 구성된다. 즉 Graph를 만들고 이를 session 상에 실행해야 작동이 된다.
 
 ##### TensorFlow를 쓰는 이유? <출처 : https://tensorflowkorea.gitbooks.io/tensorflow-kr/content/g3doc/tutorials/mnist/pros/>
 ##### 파이썬에서 효율적인 수치 연산을 하기 위해, 우리는 다른 언어로 구현된 보다 효율이 높은 코드를 사용하여 행렬곱 같은 무거운 연산을 수행하는 NumPy등의 라이브러리를 자주 사용합니다. 그러나 아쉽게도, 매 연산마다 파이썬으로 다시 돌아오는 과정에서 여전히 많은 오버헤드가 발생할 수 있습니다. 이러한 오버헤드는 GPU에서 연산을 하거나 분산 처리 환경같은, 데이터 전송에 큰 비용이 발생할 수 있는 상황에서 특히 문제가 될 수 있습니다.
@@ -82,6 +82,115 @@ Hint: If you want to see a list of allocated tensors when OOM happens, add repor
 ### TensorBoard 사용법
 ##### cmd에 이런식으로 써야 한다.
 #####tensorboard --logdir=(데이터 들어있는 폴더)/
+
+
+
+### TensorFlow의 기초 정리
+
+##### Tensorflow 처리 순서
+##### 1. tensorflow 모듈을 가져와서 tf 호출 import tensorflow as tf
+```python
+import tensorflow as tf
+```
+##### 2. 상수값 지정
+```python
+x = tf.constant(35, name='x')
+```
+##### 3. 변수값 지정
+```python
+y = tf.variable(x+5, name='y')
+```
+##### 4. global_variables_initializer로 변수 초기화
+```python
+model = tf.global_variables_initializer()
+```
+##### 5. 값을 계산하기 위한 세션 만들기
+```python
+with tf.Session() as session:
+    session.run(model)
+```
+
+##### Tensorboard는 tf.summary.FileWriter를 통해 특정 dir에 그래프, 스칼라 등을 저장할 수 있다.
+
+##### Variable_scope이란? 변수의 이름에 scope 이름이 앞에 붙게 되어 변수 간에 중복이 안되게 한다. 이렇게 하면 v를 하나만 정의해놓고 scope만 다르게 하여 각각의 scope에서 이 변수를 따로 처리해줄 수 있다.
+```python
+with tf.variable_scope("foo"):
+    with tf.variable_scope("bar"):
+        v = tf.get_varialbe("v", [1])
+
+print(v.name=="foo/bar/v:0")
+```
+##### 변수를 재사용 하기 위해서는 다음과 같이 해주면 된다.
+```python
+with tf.variable_scope("foo"):
+    v = tf.get_variable("v", [1])
+    tf.get_varialbe_scope().reuse_variables()
+    v1 = tf.get_variable("v", [1])
+    print(v1==v) #True
+```
+
+#### linspace - tensor를 할 때 시작점과 종료점 그리고 개수를 정해서 만들어낸다.
+```python
+t = tf.linspace(1.0, 5.0, 5, name="hello")
+sess.run(tf.global_variables_initializer())
+print(sess.run(t)) # [1. 2. 3. 4. 5.]
+```
+##### 만약 linspace에 들어가는 data type이 다르면 error가 뜬다.
+
+#### range - 시작점과 종료점 그리고 차이를 정해서 만들어냄, 마지막 숫자는 포함이 안됨
+```python
+k = tf.range(3 , 10, 3) # 3부터 10까지 3단위로 전부
+sess.run(tf.global_variables_initializer())
+print(sess.run(k)) #[3 6 9]
+```
+
+#### random_normal - x행 y열의 normal 분포를 가진 텐서를 생성 - mean을 -1로 설정했는데 왜 모든 원소의 합이 -1이 되지 않는 것일까??
+```python
+norm = tf.random_normal([2, 3], mean=-1, stddev=4)
+sess.run(tf.global_variables_initializer())
+print(sess.run(norm))
+#[[-5.083553    2.6220052  -1.802227  ]
+# [-6.013743   -8.545525   -0.08517963]]
+```
+##### random_normal은 파라미터로 seed값도 줄 수 있다.
+
+#### random_uniform - x행 y열의 [0, 1)의 값을 가진 텐서를 생성
+```python
+norm = tf.random_uniform([2, 3])
+sess.run(tf.global_variables_initializer())
+print(sess.run(norm))
+#[[0.42366946 0.6934687  0.4761641 ]
+# [0.7107141  0.19897747 0.05429375]]
+```
+
+#### shuffle - x행 y열의 텐서의 행단위를 shuffle해서 생성
+```python
+norm = tf.constant([[1, 2], [3, 4], [5, 6]])
+shuff = tf.random_shuffle(norm)
+sess.run(tf.global_variables_initializer())
+print(sess.run(shuff))
+#[[5 6]
+# [1 2]
+# [3 4]]
+```
+
+### 텐서플로우 내의 Operation - 이런 함수를 쓰면 op가 생성된다. 그리고 op는 그래프에 표시가 된다.
+##### Element-wise mathematical op - Add, Sub, Mul, Div, Exp, Log
+##### Array op - Concat, Slice, Split, Constant, Rank, Shape, Shuffle
+##### Matrix op - MatMul, MatrixInverse
+##### Stateful operations - Variable, Assign
+##### Neural-net building blocks - SoftMax, Sigmoid, ReLU, Conv2D, MaxPool
+##### Checkpointing operations - Save, Restore
+##### Queue and synchronization op - Enqueue, Dequeue
+##### Control flow op - Merge, Switch, Enter, Leave
+
+
+
+
+
+
+
+
 
 
 
