@@ -144,7 +144,7 @@ sess.run(tf.global_variables_initializer())
 print(sess.run(k)) #[3 6 9]
 ```
 
-#### random_normal - x행 y열의 normal 분포를 가진 텐서를 생성 - mean을 -1로 설정했는데 왜 모든 원소의 합이 -1이 되지 않는 것일까??
+#### random_normal - x행 y열의 normal 분포를 가진 텐서를 생성 - mean을 -1로 설정했는데 왜 모든 원소의  평균이 -1이 되지 않는 것일까?? (추가) random_normal은 가우스 분포를 가진 값들을 넣어준다고 한다. mean이 -1이면 -1을 중심으로 한 가우스 분포를 나타낸다는 것이다.
 ```python
 norm = tf.random_normal([2, 3], mean=-1, stddev=4)
 sess.run(tf.global_variables_initializer())

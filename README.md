@@ -41,3 +41,9 @@
 
 #### 11. Autoencoder-Using_Tensorflow
 > [TensorFlow를 이용해 Autoencoder 구현](https://github.com/jis1218/AutoEncoder-MachineLearning)
+
+#### 12. Generative Adversarial Network
+> [TensorFlow를 이용하여 GAN 구현](https://github.com/jis1218/Generative-Adversarial-Network)
+
+#### 13. Reccurent Neural Network
+> [TensorFlow를 이용하여 RNN 구현](https://github.com/jis1218/Recurrent-Neural-Network)
